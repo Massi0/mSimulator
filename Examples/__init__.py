@@ -5,7 +5,7 @@ from Modules import *
 
 import importlib
 
-to_import = ["CollisionAvoidance_PathFollowing","Unicycle"]
+to_import = ["CollisionAvoidance_PathFollowing","Unicycle","ECC_CollisionAvoidance_PathFollowing"]
 
 
 thismodule = sys.modules[__name__]

@@ -6,7 +6,10 @@ Created on Sun Feb 23 20:35:19 2020
 @author: massimacbookpro
 """
 
-from Modules import Line2D,plt,mcolors,np
+from Modules import Line2D,plt,mcolors,np,manimation
+
+
+
 
 class Render:
     def __init__(self,world):
@@ -78,3 +81,45 @@ class Render:
                     attr(val)
 
         return fig,ax
+    
+    
+    def video_play_agent(self,agent,ax,color='b',marker='+', marker_size=30):
+        states = agent.history["x"]
+        x = np.array(states)
+        ax.plot(x[:,0],x[:,1],
+                color=color,
+                linestyle='dashed')
+        p = .2
+        steps = int(np.shape(x)[1]*p)
+        steps = steps if steps>0 else 1
+        ax.scatter(x[0,0],x[0,1],
+                   c=color,
+                   marker='o',
+                   s=marker_size)
+        
+        ax.scatter(x[-1,0],x[-1,1],
+                   c=color,
+                   marker=marker,
+                   s=marker_size)
+        
+    
+    def save_video(self,):
+        FFMpegWriter = manimation.writers['ffmpeg']
+        metadata = dict(title='ECC_movie', artist='Massi Amrouche',
+                comment='TTC Collision avoidance ')
+        writer = FFMpegWriter(fps=15, metadata=metadata)
+
+        fig = plt.figure()
+        l, = plt.plot([], [], 'k-o')
+
+        plt.xlim(-5, 5)
+        plt.ylim(-5, 5)
+
+        x0,y0 = 0, 0
+
+        with writer.saving(fig, "videos/writer_test.mp4", 100):
+            for i in range(100):
+                x0 += 0.1 * np.random.randn()
+                y0 += 0.1 * np.random.randn()
+                l.set_data(x0, y0)
+                writer.grab_frame()

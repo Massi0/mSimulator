@@ -22,3 +22,7 @@ class Unicycle(Agent):
         thd = u[1]
 
         return np.squeeze([xd,yd,thd])
+    
+    
+    def get_destination(self):
+        return self.controller.get_destination()

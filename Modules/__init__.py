@@ -13,6 +13,7 @@ from matplotlib import pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib import colors as mcolors
 from IPython.core.debugger import set_trace
+import matplotlib.animation as manimation
 
 import sys
 
